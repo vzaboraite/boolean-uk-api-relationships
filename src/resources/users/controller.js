@@ -25,7 +25,7 @@ const getOneById = async (req, res) => {
   } catch (error) {
     console.error({ error: error.message });
 
-    res.json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
