@@ -29,4 +29,23 @@ const getOneById = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getOneById };
+const getUserWithAddress = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await prisma.user.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        address: true,
+      },
+    });
+    res.json({ user: result });
+  } catch (error) {
+    console.error({ error: error.message });
+
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { getAll, getOneById, getUserWithAddress };
