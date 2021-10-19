@@ -1,8 +1,24 @@
 const prisma = require("../../utils/database");
 
 const getAll = async (req, res) => {
+  const targetCity = req.query.city;
+
   try {
-    const result = await prisma.user.findMany();
+    let queryOptions = null;
+
+    if (targetCity) {
+      queryOptions = {
+        include: {
+          address: true,
+        },
+        where: {
+          address: {
+            city: targetCity,
+          },
+        },
+      };
+    }
+    const result = await prisma.user.findMany(queryOptions);
 
     res.json({ users: result });
   } catch (error) {
