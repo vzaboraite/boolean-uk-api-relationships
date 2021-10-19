@@ -24,3 +24,8 @@ model Address {
   city     String @db.VarChar(255)
   postCode String @db.VarChar(255)
 }
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+}
